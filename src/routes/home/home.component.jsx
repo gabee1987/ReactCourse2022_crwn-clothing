@@ -1,5 +1,3 @@
-import { Outlet } from 'react-router-dom';
-
 import Directory from '../../components/directory/directory.component';
 
 const Home = () => {
@@ -32,9 +30,7 @@ const Home = () => {
   ];
 
   return (
-    // The outlet component specify where the nested route element will be displayed, in this case the Shop component
     <div>
-      <Outlet />
       <Directory categories={categories} />;
     </div>
   );
