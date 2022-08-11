@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
+import FormInput from '../form-input/form-input.component';
+import Button from '../button/button.component';
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils';
-
-// Components
-import FormInput from '../form-input/form-input.component';
 
 import './sign-up-form.styles.scss';
 
@@ -62,8 +62,9 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="sign-up-form-container">
-      <h1>Sign up with your email and password</h1>
+    <div className="sign-up-container">
+      <h2>Don't have an account?</h2>
+      <span>Sign up with your email and password</span>
       <form className="sign-up-form" onSubmit={handleSubmit}>
         {/* We can use a single object to pass component properties, in this case "inputOptions" */}
         {/* <FormInput
@@ -112,7 +113,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <button type="submit">Sign Up</button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );

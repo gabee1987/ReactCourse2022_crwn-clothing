@@ -7,3 +7,13 @@
 //   margin: 0 auto;
 //   width: 100%;
 // }
+
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+
+  h2 {
+    margin: 10px 0;
+  }
+}
