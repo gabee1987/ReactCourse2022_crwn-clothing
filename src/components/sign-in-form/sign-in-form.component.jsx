@@ -43,13 +43,18 @@ const SignInForm = () => {
       // Clear out the form fields after a successful sign in
       resetFormFields();
     } catch (error) {
-      if (error.code === 'auth/user-not-found') {
-        alert('There is no user with this email!');
+      switch (error.code) {
+        case 'auth/user-not-found':
+          alert('No user associated with this email!');
+          break;
+        case 'auth/wrong-password':
+          alert('Cannot log in, check your email or password!');
+          break;
+
+        default:
+          console.log(error);
+          break;
       }
-      if (error.code === 'auth/wrong-password') {
-        alert('Cannot log in, check your email or password!');
-      }
-      console.log('user creation encountered an error', error);
     }
   };
 
@@ -83,7 +88,7 @@ const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Sign in</Button>
-          <Button buttonType="google" onClick={signInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
             Google sign in
           </Button>
         </div>
