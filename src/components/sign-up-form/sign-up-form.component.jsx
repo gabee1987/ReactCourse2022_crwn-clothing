@@ -5,6 +5,9 @@ import {
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils';
 
+// Components
+import FormInput from '../form-input/form-input.component';
+
 import './sign-up-form.styles.scss';
 
 const defaultFormFields = {
@@ -62,8 +65,20 @@ const SignUpForm = () => {
     <div className="sign-up-form-container">
       <h1>Sign up with your email and password</h1>
       <form className="sign-up-form" onSubmit={handleSubmit}>
-        <label>Display Name</label>
-        <input
+        {/* We can use a single object to pass component properties, in this case "inputOptions" */}
+        {/* <FormInput
+          label="Display Name"
+          inputOptions={{
+            type: 'text',
+            required: true,
+            onChange: handleChange,
+            name: 'displayName',
+            value: displayName,
+          }}
+        /> */}
+
+        <FormInput
+          label="Display Name"
           type="text"
           required
           onChange={handleChange}
@@ -71,8 +86,8 @@ const SignUpForm = () => {
           value={displayName}
         />
 
-        <label>Email</label>
-        <input
+        <FormInput
+          label="Email"
           type="email"
           required
           onChange={handleChange}
@@ -80,8 +95,8 @@ const SignUpForm = () => {
           value={email}
         />
 
-        <label>Password</label>
-        <input
+        <FormInput
+          label="Password"
           type="password"
           required
           onChange={handleChange}
@@ -89,8 +104,8 @@ const SignUpForm = () => {
           value={password}
         />
 
-        <label>Confirm Password</label>
-        <input
+        <FormInput
+          label="Confirm Password"
           type="password"
           required
           onChange={handleChange}
