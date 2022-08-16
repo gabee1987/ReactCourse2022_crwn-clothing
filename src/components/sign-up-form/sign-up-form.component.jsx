@@ -49,7 +49,7 @@ const SignUpForm = () => {
 
       // Store the user in the UserContext
       setCurrentUser(user);
-      console.log('userContext after sign up: ', UserContext);
+      // console.log('userContext after sign up: ', UserContext);
 
       // Create the user document
       await createUserDocumentFromAuth(user, { displayName });
