@@ -8,7 +8,7 @@ import './navigation.styles.scss';
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  console.log('currentUser: ', currentUser);
+  // console.log('currentUser: ', currentUser);
   return (
     // This Fragment element wont be rendered in the browser, we wont see it in the DOM tree
     <Fragment>
