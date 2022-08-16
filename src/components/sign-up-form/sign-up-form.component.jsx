@@ -1,9 +1,7 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-
-import { UserContext } from '../../contexts/user.context';
 
 import {
   createAuthUserWithEmailAndPassword,
@@ -22,9 +20,6 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-
-  // Declare the usercontext value
-  const { setCurrentUser } = useContext(UserContext);
 
   // After a successful registration we need to clear the form fields
   const resetFormFields = () => {
@@ -46,10 +41,6 @@ const SignUpForm = () => {
         email,
         password
       );
-
-      // Store the user in the UserContext
-      setCurrentUser(user);
-      // console.log('userContext after sign up: ', UserContext);
 
       // Create the user document
       await createUserDocumentFromAuth(user, { displayName });

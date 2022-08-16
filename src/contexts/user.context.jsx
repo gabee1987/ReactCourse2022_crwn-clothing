@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 
 import {
   onAuthStateChangedListener,
-  signOutUser,
+  createUserDocumentFromAuth,
 } from '../utils/firebase/firebase.utils';
 
 // The actual value we want to access
@@ -16,12 +16,13 @@ export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
 
-  // Need to sign out manually because sign in data remains even between page refreshes
-  //signOutUser();
-
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
-      console.log('authStateChanged:', user);
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      //console.log('authStateChanged:', user);
+      setCurrentUser(user);
     });
 
     return unsubscribe;

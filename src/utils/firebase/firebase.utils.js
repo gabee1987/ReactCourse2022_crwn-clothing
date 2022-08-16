@@ -41,7 +41,7 @@ export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (
   userAuth,
-  additionalinformation = {} // Normally there is no displayName in the auth object, so we provide it through the user input
+  additionalInformation = {} // Normally there is no displayName in the auth object, so we provide it through the user input
 ) => {
   // If we dont get a user from Google auth, we dont want this method to run further
   if (!userAuth) return;
@@ -63,7 +63,7 @@ export const createUserDocumentFromAuth = async (
         displayName,
         email,
         createAt,
-        ...additionalinformation,
+        ...additionalInformation,
       });
     } catch (error) {
       console.log('error creating the user', error.message);

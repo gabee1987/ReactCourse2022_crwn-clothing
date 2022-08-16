@@ -9,11 +9,7 @@ import { signOutUser } from '../../utils/firebase/firebase.utils';
 import './navigation.styles.scss';
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-  const signOutHandler = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
+  const { currentUser } = useContext(UserContext);
   return (
     // This Fragment element wont be rendered in the browser, we wont see it in the DOM tree
     <Fragment>
@@ -27,7 +23,7 @@ const Navigation = () => {
           </Link>
           {/* If there is a user signed in we need to render a sign out link */}
           {currentUser ? (
-            <span className="nav-link" onClick={signOutHandler}>
+            <span className="nav-link" onClick={signOutUser}>
               SIGN OUT
             </span>
           ) : (

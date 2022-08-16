@@ -1,9 +1,7 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-
-import { UserContext } from '../../contexts/user.context';
 
 import {
   signInWithGooglePopup,
@@ -22,9 +20,6 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  // Declare the usercontext value
-  const { setCurrentUser } = useContext(UserContext);
-
   // After a successful sign in we need to clear the form fields
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -32,9 +27,7 @@ const SignInForm = () => {
 
   // Login with Google Popup
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    setCurrentUser(user);
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   // Login with email & password
@@ -46,8 +39,6 @@ const SignInForm = () => {
         email,
         password
       );
-      // Store the user in the UserContext
-      setCurrentUser(user);
 
       // Clear out the form fields after a successful sign in
       resetFormFields();
