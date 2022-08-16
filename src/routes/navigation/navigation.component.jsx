@@ -37,7 +37,7 @@ const Navigation = () => {
           )}
         </div>
       </div>
-      {/* Thos Outlet represents our directory component */}
+      {/* This Outlet represents our directory component */}
       <Outlet />
     </Fragment>
   );
