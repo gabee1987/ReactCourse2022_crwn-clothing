@@ -6,7 +6,7 @@ import Button from '../button/button.component';
 import './cart-dropdown.styles.scss';
 
 const CartDropdown = () => {
-  const { items, isOpened } = useContext(CartContext);
+  const { items, isCartOpen: isOpened } = useContext(CartContext);
   return (
     <div className={`cart-dropdown-container ${isOpened ? 'isOpened' : ''}`}>
       <div className="cart-items">

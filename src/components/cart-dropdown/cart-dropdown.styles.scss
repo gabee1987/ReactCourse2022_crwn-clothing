@@ -2,7 +2,7 @@
   position: absolute;
   width: 240px;
   height: 340px;
-  display: none;
+  display: flex;
   flex-direction: column;
   padding: 15px;
   border: 1px solid black;
@@ -26,8 +26,4 @@
   button {
     margin-top: auto;
   }
-}
-
-.isOpened {
-  display: flex;
 }
