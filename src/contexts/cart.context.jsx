@@ -49,7 +49,7 @@ export const CartContext = createContext({
   isCartOpen: false,
   cartItems: [],
   cartCount: 0,
-  cartTotalPrice: 0,
+  cartTotal: 0,
   setIsCartOpen: () => {},
   addItemToCart: () => {},
   removeItemFromCart: () => {},
@@ -60,7 +60,7 @@ export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
-  const [cartTotalPrice, setCartTotalPrice] = useState(0);
+  const [cartTotal, setCartTotal] = useState(0);
 
   // useEffect runs every time when its dependency array changes [cartItems]
   useEffect(() => {
@@ -76,7 +76,16 @@ export const CartProvider = ({ children }) => {
       (total, cartItem) => total + cartItem.price,
       0
     );
-    setCartTotalPrice(newTotalPrice);
+    setCartTotal(newTotalPrice);
+  }, [cartItems]);
+
+  useEffect(() => {
+    // Count the total price of items in the cart
+    const newCartTotal = cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity * cartItem.price,
+      0
+    );
+    setCartTotal(newCartTotal);
   }, [cartItems]);
 
   const addItemToCart = (productToAdd) => {
@@ -99,7 +108,7 @@ export const CartProvider = ({ children }) => {
     addItemToCart,
     removeItemFromCart,
     clearItemFromCart,
-    cartTotalPrice,
+    cartTotal,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
