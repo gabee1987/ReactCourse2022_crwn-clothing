@@ -2,12 +2,23 @@ import { createContext, useEffect, useState } from 'react';
 
 const addCartItem = (cartItems, productToAdd) => {
   // find if cartItems contains productToAdd
-  if (cartItems.includes((item) => item.id === productToAdd.id)) {
-    // if found, increment quantity
-    productToAdd.qunatity++;
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToAdd.id
+  );
+  // if found, increment quantity
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === productToAdd.id
+        ? // if we find an already existing item in the cart, lets increase the quantity
+          // "...cartItem" means all the previous properties, "...object" called spreading
+          { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem
+    );
   }
+
   // return new array with modified cartItems/new cart item
-  return [...cartItems, productToAdd];
+  // returning a new array with all the previous elements and adding a new element with a new property
+  return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
 export const CartContext = createContext({
@@ -24,10 +35,10 @@ export const CartProvider = ({ children }) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
   const value = {
-    cartItems,
-    setCartItems,
     isCartOpen,
     setIsCartOpen,
+    cartItems,
+    addItemToCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
