@@ -21,28 +21,32 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
-const removeCartItem = (cartItems, productToRemove) => {
+const removeCartItem = (cartItems, cartItemToRemove) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToRemove.id
+    (cartItem) => cartItem.id === cartItemToRemove.id
   );
 
+  // if quantity is 1, remove item
   if (existingCartItem.quantity === 1) {
-    return cartItems.filter((cartItem) => cartItem.id !== productToRemove.id);
-  } else {
-    return cartItems.map((cartItem) =>
-      cartItem.id === productToRemove.id
-        ? { ...cartItem, quantity: cartItem.quantity - 1 }
-        : cartItem
-    );
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
   }
+
+  // if quantity is bigger than 1, decrease quantity
+  return cartItems.map((cartItem) =>
+    cartItem.id === cartItemToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+
+  // Sidenote: we are always creating a new object because React not rerender the component if its get the same object
 };
 
-const deleteCartItem = (cartItems, productToDelete) => {
+const deleteCartItem = (cartItems, cartItemToDelete) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToDelete.id
+    (cartItem) => cartItem.id === cartItemToDelete.id
   );
-  if (existingCartItem.quantity === 1) {
-    return cartItems.filter((cartItem) => cartItem.id !== productToDelete.id);
+  if (existingCartItem) {
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToDelete.id);
   }
 };
 
@@ -84,12 +88,12 @@ export const CartProvider = ({ children }) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
 
-  const removeItemFromCart = (productToRemove) => {
-    setCartItems(removeCartItem(cartItems, productToRemove));
+  const removeItemFromCart = (cartItemToRemove) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove));
   };
 
-  const deleteItemFromCart = (productToDelete) => {
-    setCartItems(deleteCartItem(cartItems, productToDelete));
+  const deleteItemFromCart = (cartItemToDelete) => {
+    setCartItems(deleteCartItem(cartItems, cartItemToDelete));
   };
 
   const value = {
