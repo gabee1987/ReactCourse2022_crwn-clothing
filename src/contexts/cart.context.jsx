@@ -41,13 +41,8 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   // Sidenote: we are always creating a new object because React not rerender the component if its get the same object
 };
 
-const deleteCartItem = (cartItems, cartItemToDelete) => {
-  const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToDelete.id
-  );
-  if (existingCartItem) {
-    return cartItems.filter((cartItem) => cartItem.id !== cartItemToDelete.id);
-  }
+const clearCartItem = (cartItems, cartItemToDelete) => {
+  return cartItems.filter((cartItem) => cartItem.id !== cartItemToDelete.id);
 };
 
 export const CartContext = createContext({
@@ -58,7 +53,7 @@ export const CartContext = createContext({
   setIsCartOpen: () => {},
   addItemToCart: () => {},
   removeItemFromCart: () => {},
-  deleteItemFromCart: () => {},
+  clearItemFromCart: () => {},
 });
 
 export const CartProvider = ({ children }) => {
@@ -92,8 +87,8 @@ export const CartProvider = ({ children }) => {
     setCartItems(removeCartItem(cartItems, cartItemToRemove));
   };
 
-  const deleteItemFromCart = (cartItemToDelete) => {
-    setCartItems(deleteCartItem(cartItems, cartItemToDelete));
+  const clearItemFromCart = (cartItemToClear) => {
+    setCartItems(clearCartItem(cartItems, cartItemToClear));
   };
 
   const value = {
@@ -103,7 +98,7 @@ export const CartProvider = ({ children }) => {
     cartCount,
     addItemToCart,
     removeItemFromCart,
-    deleteItemFromCart,
+    clearItemFromCart,
     cartTotalPrice,
   };
 
