@@ -51,10 +51,23 @@ export const db = getFirestore();
 export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
+  // someFieldValue // Here we can add additional values we want to use at the upload process
 ) => {
+  // This collection reference can tell what db the documents are from
   const collectionRef = collection(db, collectionKey);
 
   // This is a single transaction
+  const batch = writeBatch(db);
+  objectsToAdd.forEach((object) => {
+    // The second argument here is the name of the collection, the key
+    const docRef = doc(collectionRef, object.title.toLowerCase()); // We can use additional field values -> object[someFieldValue].toLowerCase()
+
+    // Creating a document ref for each of the objects we want to add to the db, with the title of the objects
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log('writing to firestore is done');
 };
 
 export const createUserDocumentFromAuth = async (
