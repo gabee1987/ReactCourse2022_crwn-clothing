@@ -7,13 +7,12 @@ import { createContext, useState, useEffect } from 'react';
 import { getCategoriesAndDocuments } from '../utils/firebase/firebase.utils.js';
 
 // The actual value we want to access
-export const ProductsContext = createContext({
-  //   setProducts: () => null,
-  products: [],
+export const CategoriesContext = createContext({
+  categoriesMap: {},
 });
 
-export const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
+export const CategoriesProvider = ({ children }) => {
+  const [categoriesMap, setCategoriesMap] = useState({});
 
   // This will run only once to upload the data to the db
   // useEffect(() => {
@@ -26,17 +25,18 @@ export const ProductsProvider = ({ children }) => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments();
       // console.log('getting the data from the db...', categoryMap);
+      setCategoriesMap(categoryMap);
     };
 
     // Then we need to invoke the async func
     getCategoriesMap();
   }, []);
 
-  const value = { products };
+  const value = { categoriesMap };
 
   return (
-    <ProductsContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </ProductsContext.Provider>
+    </CategoriesContext.Provider>
   );
 };
