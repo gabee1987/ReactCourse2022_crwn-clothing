@@ -7,7 +7,7 @@ const CategoriesPreview = () => {
   const { categoriesMap } = useContext(CategoriesContext);
   return (
     // The shorthand of the Fragment is just simply <>
-    <Fragment className="category-preview-container">
+    <Fragment>
       {Object.keys(categoriesMap).map((title) => {
         const products = categoriesMap[title];
         return (

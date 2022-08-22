@@ -10,7 +10,12 @@ import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 
-import './navigation.styles.scss';
+import {
+  NavigationContainer,
+  NavLinks,
+  NavLink,
+  LogoContainer,
+} from './navigation.styles';
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
@@ -18,29 +23,29 @@ const Navigation = () => {
   return (
     // This Fragment element wont be rendered in the browser, we wont see it in the DOM tree
     <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
+      <NavigationContainer className="navigation">
+        <LogoContainer className="logo-container" to="/">
           <CrwnLogo className="logo" />
-        </Link>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
+        </LogoContainer>
+        <NavLinks className="nav-links-container">
+          <NavLink className="nav-link" to="/shop">
             SHOP
-          </Link>
+          </NavLink>
           {/* If there is a user signed in we need to render a sign out link */}
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
+            <NavLink as="span" className="nav-link" onClick={signOutUser}>
               SIGN OUT
-            </span>
+            </NavLink>
           ) : (
-            <Link className="nav-link" to="/auth">
+            <NavLink className="nav-link" to="/auth">
               SIGN IN
-            </Link>
+            </NavLink>
           )}
           <CartIcon />
-        </div>
+        </NavLinks>
         {/* Double && operator evaulates the truthness of both sides of the operator */}
         {isCartOpen && <CartDropdown />}
-      </div>
+      </NavigationContainer>
       {/* This Outlet represents our directory component */}
       <Outlet />
     </Fragment>
